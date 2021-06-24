@@ -6,7 +6,16 @@
         xmlns:local="clr-namespace:Jigsaw_Puzzle_Generator_WPF"
         mc:Ignorable="d"
         Title="Jigsaw Puzzle Generator" Height="450" Width="800">
-    <Grid>
+    <Grid Margin="4">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
 
+        <Button Content="Browse" Width="60" Click="BrowseToImage" Margin="2"/>
+
+        <Canvas Grid.Row="1" x:Name="puzzleCanvas" Margin="2">
+            <Image x:Name="image"/>
+        </Canvas>
     </Grid>
 </Window>
