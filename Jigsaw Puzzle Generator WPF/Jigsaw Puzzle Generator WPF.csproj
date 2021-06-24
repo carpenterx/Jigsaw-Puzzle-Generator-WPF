@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Jigsaw_Puzzle_Generator_WPF</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Jigsaw_icon-icons.com_75331.ico</ApplicationIcon>
+  </PropertyGroup>
+
+</Project>
