@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Jigsaw_Puzzle_Generator_WPF.Controls
 {
@@ -11,40 +12,47 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
     public partial class PuzzlePiece : UserControl
     {
         private Point _positionInBlock;
-        public PuzzlePiece()
+        private Vector offset;
+        public PuzzlePiece(BitmapImage bitmapImage)
         {
             InitializeComponent();
+
+            puzzleImage.Source = bitmapImage;
+
+            Vector offset = VisualTreeHelper.GetOffset(this);
+            //offsetPoint = new Point(offset.X, offset.Y);
         }
 
         private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
             // when the mouse is down, get the position within the current control. (so the control top/left doesn't move to the mouse position)
             _positionInBlock = Mouse.GetPosition(this);
+            //_positionInBlock = Mouse.GetPosition(this);
 
             // capture the mouse (so the mouse move events are still triggered (even when the mouse is not above the control)
-            this.CaptureMouse();
+            CaptureMouse();
         }
 
         private void UserControl_MouseMove(object sender, MouseEventArgs e)
         {
             // if the mouse is captured. you are moving it. (there is your 'real' boolean)
-            if (this.IsMouseCaptured)
+            if (IsMouseCaptured)
             {
                 // get the parent container
-                var container = VisualTreeHelper.GetParent(this) as UIElement;
+                UIElement container = VisualTreeHelper.GetParent(this) as UIElement;
 
                 // get the position within the container
-                var mousePosition = e.GetPosition(container);
+                Point mousePosition = e.GetPosition(container);
 
                 // move the usercontrol.
-                this.RenderTransform = new TranslateTransform(mousePosition.X - _positionInBlock.X, mousePosition.Y - _positionInBlock.Y);
+                RenderTransform = new TranslateTransform(mousePosition.X - _positionInBlock.X, mousePosition.Y - _positionInBlock.Y);
             }
         }
 
         private void UserControl_MouseUp(object sender, MouseButtonEventArgs e)
         {
             // release this control.
-            this.ReleaseMouseCapture();
+            ReleaseMouseCapture();
         }
     }
 }

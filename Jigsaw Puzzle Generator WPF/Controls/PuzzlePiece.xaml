@@ -9,8 +9,8 @@
              MouseDown="UserControl_MouseDown"
              MouseUp="UserControl_MouseUp"
              MouseMove="UserControl_MouseMove">
-    <Grid>
-        <Border BorderBrush="Black" BorderThickness="1" Background="Silver" />
-        <TextBlock FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center">Hi there!!</TextBlock>
-    </Grid>
+    <Border BorderThickness="1" BorderBrush="DarkGreen">
+        <Image x:Name="puzzleImage" Stretch="None"/>
+    </Border>
+    
 </UserControl>

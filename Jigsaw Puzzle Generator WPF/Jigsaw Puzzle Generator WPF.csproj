@@ -8,4 +8,8 @@
     <ApplicationIcon>Jigsaw_icon-icons.com_75331.ico</ApplicationIcon>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
+
 </Project>
