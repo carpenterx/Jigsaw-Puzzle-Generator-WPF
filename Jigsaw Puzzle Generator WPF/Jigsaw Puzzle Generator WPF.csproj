@@ -9,7 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controls\puzzle border.png" />
+    <None Remove="Controls\puzzle mask.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="5.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Controls\puzzle border.png" />
+    <Resource Include="Controls\puzzle mask.png" />
   </ItemGroup>
 
 </Project>

@@ -19,7 +19,7 @@
 
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <Canvas x:Name="puzzleCanvas" Margin="2">
-                <Image x:Name="image" Stretch="None"/>
+                <Image x:Name="image" Stretch="None" Opacity="0.8"/>
             </Canvas>
         </ScrollViewer>
         
