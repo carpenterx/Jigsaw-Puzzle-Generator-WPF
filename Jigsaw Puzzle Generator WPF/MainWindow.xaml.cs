@@ -1,19 +1,8 @@
-﻿using Microsoft.Win32;
+﻿using Jigsaw_Puzzle_Generator_WPF.Controls;
+using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Jigsaw_Puzzle_Generator_WPF
 {
@@ -56,6 +45,11 @@ namespace Jigsaw_Puzzle_Generator_WPF
             image.Source = bitmapImage;
             image.Width = bitmapImage.PixelWidth;
             image.Height = bitmapImage.PixelHeight;
+        }
+
+        private void AddPieceClick(object sender, RoutedEventArgs e)
+        {
+            puzzleCanvas.Children.Add(new PuzzlePiece());
         }
     }
 }
