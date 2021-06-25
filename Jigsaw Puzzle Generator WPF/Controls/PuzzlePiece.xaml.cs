@@ -12,6 +12,8 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
     public partial class PuzzlePiece : UserControl
     {
         private Point _positionInBlock;
+        private double startX;
+        private double startY;
         private UIElement container;
         public PuzzlePiece(BitmapImage bitmapImage)
         {
@@ -26,6 +28,8 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
         {
             // when the mouse is down, get the position within the current control. (so the control top/left doesn't move to the mouse position)
             _positionInBlock = Mouse.GetPosition(container);
+            startX = Canvas.GetLeft(this);
+            startY = Canvas.GetTop(this);
 
             // capture the mouse (so the mouse move events are still triggered (even when the mouse is not above the control)
             CaptureMouse();
@@ -40,7 +44,9 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
                 Point mousePosition = e.GetPosition(container);
 
                 // move the usercontrol.
-                RenderTransform = new TranslateTransform(mousePosition.X - _positionInBlock.X, mousePosition.Y - _positionInBlock.Y);
+                //RenderTransform = new TranslateTransform(mousePosition.X - _positionInBlock.X, mousePosition.Y - _positionInBlock.Y);
+                Canvas.SetLeft(this, startX + (mousePosition.X - _positionInBlock.X));
+                Canvas.SetTop(this, startY + (mousePosition.Y - _positionInBlock.Y));
             }
         }
 
