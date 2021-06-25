@@ -46,6 +46,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private void ShowImage(string imagePath)
         {
             b = new Bitmap(imagePath);
+            b.SetResolution(96, 96);
             BitmapImage bitmapImage = ConvertToBitmapImage(b);
             puzzleCanvas.Width = bitmapImage.PixelWidth;
             puzzleCanvas.Height = bitmapImage.PixelHeight;
@@ -74,8 +75,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
             BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
             PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage);
 
-            //Canvas.SetLeft(puzzlePiece, 300);
-            //Canvas.SetTop(puzzlePiece, 150);
+            Canvas.SetLeft(puzzlePiece, 300);
+            Canvas.SetTop(puzzlePiece, 150);
             puzzleCanvas.Children.Add(puzzlePiece);
         }
     }

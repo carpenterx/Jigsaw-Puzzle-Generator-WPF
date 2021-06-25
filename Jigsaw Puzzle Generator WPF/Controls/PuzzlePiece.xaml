@@ -9,7 +9,7 @@
              MouseDown="UserControl_MouseDown"
              MouseUp="UserControl_MouseUp"
              MouseMove="UserControl_MouseMove">
-    <Border BorderThickness="1" BorderBrush="DarkGreen">
+    <Border BorderBrush="DarkGreen">
         <Image x:Name="puzzleImage" Stretch="None"/>
     </Border>
     

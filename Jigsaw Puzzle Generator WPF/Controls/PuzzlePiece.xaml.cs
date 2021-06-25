@@ -12,22 +12,20 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
     public partial class PuzzlePiece : UserControl
     {
         private Point _positionInBlock;
-        private Vector offset;
+        private UIElement container;
         public PuzzlePiece(BitmapImage bitmapImage)
         {
             InitializeComponent();
 
             puzzleImage.Source = bitmapImage;
 
-            Vector offset = VisualTreeHelper.GetOffset(this);
-            //offsetPoint = new Point(offset.X, offset.Y);
+            container = VisualTreeHelper.GetParent(this) as UIElement;
         }
 
         private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
             // when the mouse is down, get the position within the current control. (so the control top/left doesn't move to the mouse position)
-            _positionInBlock = Mouse.GetPosition(this);
-            //_positionInBlock = Mouse.GetPosition(this);
+            _positionInBlock = Mouse.GetPosition(container);
 
             // capture the mouse (so the mouse move events are still triggered (even when the mouse is not above the control)
             CaptureMouse();
@@ -38,9 +36,6 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
             // if the mouse is captured. you are moving it. (there is your 'real' boolean)
             if (IsMouseCaptured)
             {
-                // get the parent container
-                UIElement container = VisualTreeHelper.GetParent(this) as UIElement;
-
                 // get the position within the container
                 Point mousePosition = e.GetPosition(container);
 
