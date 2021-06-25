@@ -71,13 +71,30 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
         private void AddPieceClick(object sender, RoutedEventArgs e)
         {
-            Bitmap bitmap = b.Clone(new Rectangle(300, 150, 200, 400), b.PixelFormat);
-            BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
-            PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage);
+            GeneratePieces(2, 3);
+        }
 
-            Canvas.SetLeft(puzzlePiece, 300);
-            Canvas.SetTop(puzzlePiece, 150);
-            puzzleCanvas.Children.Add(puzzlePiece);
+        private void GeneratePieces(int hPieceCount, int vPieceCount)
+        {
+            int width = b.Width;
+            int height = b.Height;
+            int pieceWidth = width / hPieceCount;
+            int pieceHeight = height / vPieceCount;
+            for (int i = 0; i < hPieceCount; i++)
+            {
+                for (int j = 0; j < vPieceCount; j++)
+                {
+                    int xOffset = pieceWidth * i;
+                    int yOffset = pieceHeight * j;
+                    Bitmap bitmap = b.Clone(new Rectangle(xOffset, yOffset, pieceWidth, pieceHeight), b.PixelFormat);
+                    BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
+                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage);
+
+                    Canvas.SetLeft(puzzlePiece, xOffset);
+                    Canvas.SetTop(puzzlePiece, yOffset);
+                    puzzleCanvas.Children.Add(puzzlePiece);
+                }
+            }
         }
     }
 }
