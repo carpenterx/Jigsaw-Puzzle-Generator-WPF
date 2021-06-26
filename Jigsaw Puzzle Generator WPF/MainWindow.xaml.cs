@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -20,6 +21,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private const string IMAGE_PATH = @"C:\Users\jorda\Desktop\pexels-julia-volk-5273517.jpg";
         private const string BORDER_PATH = @"C:\Users\jorda\Desktop\puzzle border new.png";
         private const string MASK_PATH = @"C:\Users\jorda\Desktop\puzzle mask new.png";
+        private const string SOUND_PATH = @"C:\Users\jorda\Desktop\click2.wav";
+        private SoundPlayer soundPlayer = new SoundPlayer(SOUND_PATH);
         private Bitmap b;
         private Bitmap borderBitmap;
         private Bitmap maskBitmap;
@@ -35,6 +38,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
             maskBitmap = new Bitmap(MASK_PATH);
             maskBitmap.SetResolution(96, 96);
+
+            soundPlayer.Load();
         }
 
         private void BrowseToImage(object sender, RoutedEventArgs e)
@@ -81,6 +86,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
         private void AddPieceClick(object sender, RoutedEventArgs e)
         {
+            soundPlayer.Play();
             GeneratePieces();
         }
 
