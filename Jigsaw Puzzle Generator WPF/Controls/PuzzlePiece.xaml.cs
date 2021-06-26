@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,7 +20,8 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
         private double destinationY;
         private double precision = 10;
         private UIElement container;
-        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap, double x, double y)
+        SoundPlayer player;
+        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap, double x, double y, SoundPlayer soundPlayer)
         {
             InitializeComponent();
 
@@ -29,6 +31,8 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
 
             destinationX = x;
             destinationY = y;
+
+            player = soundPlayer;
 
             container = VisualTreeHelper.GetParent(this) as UIElement;
         }
@@ -66,6 +70,7 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
             {
                 Canvas.SetLeft(this, destinationX);
                 Canvas.SetTop(this, destinationY);
+                player.Play();
             }
             // release this control.
             ReleaseMouseCapture();

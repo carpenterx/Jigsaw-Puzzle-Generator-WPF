@@ -86,7 +86,6 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
         private void AddPieceClick(object sender, RoutedEventArgs e)
         {
-            //soundPlayer.Play();
             GeneratePieces();
         }
 
@@ -122,7 +121,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     BitmapImage borderBitmapImage = ConvertToBitmapImage(borderBitmap);
                     maskBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
-                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding);
+                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, soundPlayer);
 
                     Canvas.SetLeft(puzzlePiece, xOffset - padding);
                     Canvas.SetTop(puzzlePiece, yOffset - padding);
