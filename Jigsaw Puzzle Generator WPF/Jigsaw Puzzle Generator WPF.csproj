@@ -9,7 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controls\puzzle border new.png" />
     <None Remove="Controls\puzzle border.png" />
+    <None Remove="Controls\puzzle mask new.png" />
     <None Remove="Controls\puzzle mask.png" />
   </ItemGroup>
 
@@ -18,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Controls\puzzle border new.png" />
     <Resource Include="Controls\puzzle border.png" />
+    <Resource Include="Controls\puzzle mask new.png" />
     <Resource Include="Controls\puzzle mask.png" />
   </ItemGroup>
 

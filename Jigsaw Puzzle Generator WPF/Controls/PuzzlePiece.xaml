@@ -5,15 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Jigsaw_Puzzle_Generator_WPF.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="480" d:DesignWidth="480"
              MouseDown="UserControl_MouseDown"
              MouseUp="UserControl_MouseUp"
              MouseMove="UserControl_MouseMove">
     <Grid>
-        <Image Source="/Controls/puzzle border.png"/>
+        <Image Source="/Controls/puzzle border new.png"/>
         <Image x:Name="puzzleImage" Stretch="None">
             <Image.OpacityMask>
-                <ImageBrush ImageSource="/Controls/puzzle mask.png"/>
+                <ImageBrush ImageSource="/Controls/puzzle mask new.png"/>
             </Image.OpacityMask>
         </Image>
     </Grid>

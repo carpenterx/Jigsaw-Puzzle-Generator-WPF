@@ -71,27 +71,49 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
         private void AddPieceClick(object sender, RoutedEventArgs e)
         {
-            GeneratePieces(2, 3);
+            GeneratePieces();
         }
 
-        private void GeneratePieces(int hPieceCount, int vPieceCount)
+        private void GeneratePieces()
         {
             int width = b.Width;
             int height = b.Height;
-            int pieceWidth = width / hPieceCount;
-            int pieceHeight = height / vPieceCount;
+            int paddedWidth = width + 160;
+            int paddedHeight = height + 160;
+            int pieceSize = 480;
+            int pieceCenter = 320;
+            int hPieceCount = width / pieceCenter;
+            int vPieceCount = height / pieceCenter;
+
+            Bitmap paddedBitmap = new Bitmap(paddedWidth, paddedHeight);
+            paddedBitmap.SetResolution(96, 96);
+            Graphics g = Graphics.FromImage(paddedBitmap);
+            //g.Clear(Color.White);
+            g.DrawImageUnscaled(b, 80, 80);
+            //paddedBitmap.Save(@"C:\Users\jorda\Desktop\padded.png", ImageFormat.Png);
+
+            /*int xOffset = 0;
+            int yOffset = 0;
+            Bitmap bitmap = paddedBitmap.Clone(new Rectangle(xOffset, yOffset, pieceSize, pieceSize), paddedBitmap.PixelFormat);
+            BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
+            PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage);
+
+            Canvas.SetLeft(puzzlePiece, xOffset);
+            Canvas.SetTop(puzzlePiece, yOffset);
+            puzzleCanvas.Children.Add(puzzlePiece);*/
+
             for (int i = 0; i < hPieceCount; i++)
             {
                 for (int j = 0; j < vPieceCount; j++)
                 {
-                    int xOffset = pieceWidth * i;
-                    int yOffset = pieceHeight * j;
-                    Bitmap bitmap = b.Clone(new Rectangle(xOffset, yOffset, pieceWidth, pieceHeight), b.PixelFormat);
+                    int xOffset = pieceCenter * i;
+                    int yOffset = pieceCenter * j;
+                    Bitmap bitmap = paddedBitmap.Clone(new Rectangle(xOffset, yOffset, pieceSize, pieceSize), paddedBitmap.PixelFormat);
                     BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage);
 
-                    Canvas.SetLeft(puzzlePiece, xOffset);
-                    Canvas.SetTop(puzzlePiece, yOffset);
+                    Canvas.SetLeft(puzzlePiece, xOffset - 80);
+                    Canvas.SetTop(puzzlePiece, yOffset - 80);
                     puzzleCanvas.Children.Add(puzzlePiece);
                 }
             }
