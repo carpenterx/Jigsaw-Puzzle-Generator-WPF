@@ -18,13 +18,23 @@ namespace Jigsaw_Puzzle_Generator_WPF
     public partial class MainWindow : Window
     {
         private const string IMAGE_PATH = @"C:\Users\jorda\Desktop\pexels-julia-volk-5273517.jpg";
+        private const string BORDER_PATH = @"C:\Users\jorda\Desktop\puzzle border new.png";
+        private const string MASK_PATH = @"C:\Users\jorda\Desktop\puzzle mask new.png";
         private Bitmap b;
+        private Bitmap borderBitmap;
+        private Bitmap maskBitmap;
 
         public MainWindow()
         {
             InitializeComponent();
 
             ShowImage(IMAGE_PATH);
+
+            borderBitmap = new Bitmap(BORDER_PATH);
+            borderBitmap.SetResolution(96, 96);
+
+            maskBitmap = new Bitmap(MASK_PATH);
+            maskBitmap.SetResolution(96, 96);
         }
 
         private void BrowseToImage(object sender, RoutedEventArgs e)
@@ -92,16 +102,6 @@ namespace Jigsaw_Puzzle_Generator_WPF
             g.DrawImageUnscaled(b, 80, 80);
             //paddedBitmap.Save(@"C:\Users\jorda\Desktop\padded.png", ImageFormat.Png);
 
-            /*int xOffset = 0;
-            int yOffset = 0;
-            Bitmap bitmap = paddedBitmap.Clone(new Rectangle(xOffset, yOffset, pieceSize, pieceSize), paddedBitmap.PixelFormat);
-            BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
-            PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage);
-
-            Canvas.SetLeft(puzzlePiece, xOffset);
-            Canvas.SetTop(puzzlePiece, yOffset);
-            puzzleCanvas.Children.Add(puzzlePiece);*/
-
             for (int i = 0; i < hPieceCount; i++)
             {
                 for (int j = 0; j < vPieceCount; j++)
@@ -110,7 +110,11 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     int yOffset = pieceCenter * j;
                     Bitmap bitmap = paddedBitmap.Clone(new Rectangle(xOffset, yOffset, pieceSize, pieceSize), paddedBitmap.PixelFormat);
                     BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
-                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage);
+                    borderBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    BitmapImage borderBitmapImage = ConvertToBitmapImage(borderBitmap);
+                    maskBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
+                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage);
 
                     Canvas.SetLeft(puzzlePiece, xOffset - 80);
                     Canvas.SetTop(puzzlePiece, yOffset - 80);

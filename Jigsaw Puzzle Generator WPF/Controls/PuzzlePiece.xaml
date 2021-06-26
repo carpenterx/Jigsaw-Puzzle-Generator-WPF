@@ -10,10 +10,10 @@
              MouseUp="UserControl_MouseUp"
              MouseMove="UserControl_MouseMove">
     <Grid>
-        <Image Source="/Controls/puzzle border new.png"/>
+        <Image x:Name="borderImage" Source="/Controls/puzzle border new.png" Stretch="None"/>
         <Image x:Name="puzzleImage" Stretch="None">
             <Image.OpacityMask>
-                <ImageBrush ImageSource="/Controls/puzzle mask new.png"/>
+                <ImageBrush x:Name="maskImage" ImageSource="/Controls/puzzle mask new.png" Stretch="None"/>
             </Image.OpacityMask>
         </Image>
     </Grid>

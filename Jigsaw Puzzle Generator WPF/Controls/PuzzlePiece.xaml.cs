@@ -15,11 +15,13 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
         private double startX;
         private double startY;
         private UIElement container;
-        public PuzzlePiece(BitmapImage bitmapImage)
+        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap)
         {
             InitializeComponent();
 
-            puzzleImage.Source = bitmapImage;
+            borderImage.Source = borderBitmap;
+            puzzleImage.Source = pieceBitmap;
+            maskImage.ImageSource = maskBitmap;
 
             container = VisualTreeHelper.GetParent(this) as UIElement;
         }
