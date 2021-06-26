@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -12,16 +13,22 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
     public partial class PuzzlePiece : UserControl
     {
         private Point _positionInBlock;
-        private double startX;
-        private double startY;
+        private double dragStartX;
+        private double dragStartY;
+        private double destinationX;
+        private double destinationY;
+        private double precision = 10;
         private UIElement container;
-        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap)
+        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap, double x, double y)
         {
             InitializeComponent();
 
             borderImage.Source = borderBitmap;
             puzzleImage.Source = pieceBitmap;
             maskImage.ImageSource = maskBitmap;
+
+            destinationX = x;
+            destinationY = y;
 
             container = VisualTreeHelper.GetParent(this) as UIElement;
         }
@@ -30,8 +37,8 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
         {
             // when the mouse is down, get the position within the current control. (so the control top/left doesn't move to the mouse position)
             _positionInBlock = Mouse.GetPosition(container);
-            startX = Canvas.GetLeft(this);
-            startY = Canvas.GetTop(this);
+            dragStartX = Canvas.GetLeft(this);
+            dragStartY = Canvas.GetTop(this);
 
             // capture the mouse (so the mouse move events are still triggered (even when the mouse is not above the control)
             CaptureMouse();
@@ -47,13 +54,19 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
 
                 // move the usercontrol.
                 //RenderTransform = new TranslateTransform(mousePosition.X - _positionInBlock.X, mousePosition.Y - _positionInBlock.Y);
-                Canvas.SetLeft(this, startX + (mousePosition.X - _positionInBlock.X));
-                Canvas.SetTop(this, startY + (mousePosition.Y - _positionInBlock.Y));
+                Canvas.SetLeft(this, dragStartX + (mousePosition.X - _positionInBlock.X));
+                Canvas.SetTop(this, dragStartY + (mousePosition.Y - _positionInBlock.Y));
             }
         }
 
         private void UserControl_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            Point mousePosition = e.GetPosition(container);
+            if (Math.Abs(dragStartX + (mousePosition.X - _positionInBlock.X) - destinationX) < precision && Math.Abs(dragStartY + (mousePosition.Y - _positionInBlock.Y) - destinationY) < precision)
+            {
+                Canvas.SetLeft(this, destinationX);
+                Canvas.SetTop(this, destinationY);
+            }
             // release this control.
             ReleaseMouseCapture();
         }

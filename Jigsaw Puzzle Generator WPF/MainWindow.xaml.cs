@@ -122,7 +122,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     BitmapImage borderBitmapImage = ConvertToBitmapImage(borderBitmap);
                     maskBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
-                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage);
+                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding);
 
                     Canvas.SetLeft(puzzlePiece, xOffset - padding);
                     Canvas.SetTop(puzzlePiece, yOffset - padding);
