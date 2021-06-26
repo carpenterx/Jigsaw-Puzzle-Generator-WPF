@@ -86,7 +86,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
         private void AddPieceClick(object sender, RoutedEventArgs e)
         {
-            soundPlayer.Play();
+            //soundPlayer.Play();
             GeneratePieces();
         }
 
@@ -94,10 +94,12 @@ namespace Jigsaw_Puzzle_Generator_WPF
         {
             int width = b.Width;
             int height = b.Height;
-            int paddedWidth = width + 160;
-            int paddedHeight = height + 160;
+            
             int pieceSize = 480;
             int pieceCenter = 320;
+            int padding = (pieceSize - pieceCenter) / 2;
+            int paddedWidth = padding + width + padding;
+            int paddedHeight = padding + height + padding;
             int hPieceCount = width / pieceCenter;
             int vPieceCount = height / pieceCenter;
 
@@ -105,7 +107,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
             paddedBitmap.SetResolution(96, 96);
             Graphics g = Graphics.FromImage(paddedBitmap);
             //g.Clear(Color.White);
-            g.DrawImageUnscaled(b, 80, 80);
+            g.DrawImageUnscaled(b, padding, padding);
             //paddedBitmap.Save(@"C:\Users\jorda\Desktop\padded.png", ImageFormat.Png);
 
             for (int i = 0; i < hPieceCount; i++)
@@ -122,8 +124,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage);
 
-                    Canvas.SetLeft(puzzlePiece, xOffset - 80);
-                    Canvas.SetTop(puzzlePiece, yOffset - 80);
+                    Canvas.SetLeft(puzzlePiece, xOffset - padding);
+                    Canvas.SetTop(puzzlePiece, yOffset - padding);
                     puzzleCanvas.Children.Add(puzzlePiece);
                 }
             }
