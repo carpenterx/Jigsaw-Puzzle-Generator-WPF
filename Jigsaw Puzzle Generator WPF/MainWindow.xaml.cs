@@ -31,6 +31,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private int correctPieces;
         private int totalPieces;
 
+        private Random random = new();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -98,8 +100,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
             int width = b.Width;
             int height = b.Height;
             
-            int pieceSize = 240;
-            int pieceCenter = 160;
+            int pieceSize = 480;
+            int pieceCenter = 320;
             int padding = (pieceSize - pieceCenter) / 2;
             int paddedWidth = padding + width + padding;
             int paddedHeight = padding + height + padding;
@@ -131,10 +133,12 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize);
 
-                    Canvas.SetLeft(puzzlePiece, xOffset - padding);
+                    //Canvas.SetLeft(puzzlePiece, xOffset - padding);
                     //Canvas.SetLeft(puzzlePiece, 0);
-                    Canvas.SetTop(puzzlePiece, yOffset - padding);
+                    Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
+                    //Canvas.SetTop(puzzlePiece, yOffset - padding);
                     //Canvas.SetTop(puzzlePiece, 0);
+                    Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
                     puzzlePiece.SnapEventHandler += OnPieceSnap;
                     puzzleCanvas.Children.Add(puzzlePiece);
                 }
