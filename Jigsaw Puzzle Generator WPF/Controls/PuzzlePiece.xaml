@@ -10,11 +10,16 @@
              MouseUp="UserControl_MouseUp"
              MouseMove="UserControl_MouseMove">
     <Grid>
-        <Image x:Name="puzzleImage">
+        <local:PuzzleImage x:Name="puzzleImage"/>
+        <Image x:Name="borderImage" Source="/Controls/puzzle border new.png" IsHitTestVisible="False"/>
+    </Grid>
+    
+    <!--<Grid>
+        <local:PuzzleImage x:Name="puzzleImage">
             <Image.OpacityMask>
                 <ImageBrush x:Name="maskImage" ImageSource="/Controls/puzzle mask new.png"/>
             </Image.OpacityMask>
-        </Image>
-        <Image x:Name="borderImage" Source="/Controls/puzzle border new.png"/>
-    </Grid>
+        </local:PuzzleImage>
+        <Image x:Name="borderImage" Source="/Controls/puzzle border new.png" IsHitTestVisible="False"/>
+    </Grid>-->
 </UserControl>

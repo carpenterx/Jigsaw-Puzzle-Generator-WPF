@@ -22,7 +22,7 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
         private double destinationY;
         private double precision = 10;
         private UIElement container;
-        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap, double x, double y, int pieceSize)
+        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage borderBitmap, double x, double y, int pieceSize)
         {
             InitializeComponent();
 
@@ -33,7 +33,7 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
 
             borderImage.Source = borderBitmap;
             puzzleImage.Source = pieceBitmap;
-            maskImage.ImageSource = maskBitmap;
+            //maskImage.ImageSource = maskBitmap;
 
             destinationX = x;
             destinationY = y;

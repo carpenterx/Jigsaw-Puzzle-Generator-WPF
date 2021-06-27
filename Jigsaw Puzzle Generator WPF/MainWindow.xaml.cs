@@ -1,17 +1,18 @@
 ﻿using Jigsaw_Puzzle_Generator_WPF.Controls;
 using Microsoft.Win32;
+using Svg;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
+using static System.Net.WebRequestMethods;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace Jigsaw_Puzzle_Generator_WPF
@@ -28,7 +29,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private SoundPlayer soundPlayer = new SoundPlayer(SOUND_PATH);
         private Bitmap b;
         private Bitmap borderBitmap;
-        private Bitmap maskBitmap;
+        //private Bitmap maskBitmap;
 
         private int correctPieces;
         private int totalPieces;
@@ -38,6 +39,13 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private int paddedWidth;
         private int paddedHeight;
         private int pieceSize;
+
+        private string pathData1 = "M 400 200 v -120 h -120 c 0 22 40 80 -40 80 s -40 -58 -40 -80 h -120 v 120 c -22 0 -80 -40 -80 40 s 58 40 80 40 v 120 h 120 c 0 -22 -40 -80 40 -80 s 40 58 40 80 h 120 v -120 c 22 0 80 40 80 -40 s -58 -40 -80 -40 Z";
+
+        private string pathData2 = "M 400 200 v -120 h -120 c 0 -22 40 -80 -40 -80 s -40 58 -40 80 h -120 v 120 c 22 0 80 -40 80 40 s -58 40 -80 40 v 120 h 120 c 0 22 -40 80 40 80 s 40 -58 40 -80 h 120 v -120 c -22 0 -80 40 -80 -40 s 58 -40 80 -40 Z";
+
+        Region region1;
+        Region region2;
 
         private Random random = new();
 
@@ -50,8 +58,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
             borderBitmap = new Bitmap(BORDER_PATH);
             borderBitmap.SetResolution(96, 96);
 
-            maskBitmap = new Bitmap(MASK_PATH);
-            maskBitmap.SetResolution(96, 96);
+            //maskBitmap = new Bitmap(MASK_PATH);
+            //maskBitmap.SetResolution(96, 96);
 
             soundPlayer.Load();
         }
@@ -127,7 +135,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
             g.Clear(Color.White);
             g.DrawImageUnscaled(b, padding, padding);
             //paddedBitmap.Save(@"C:\Users\jorda\Desktop\padded.png", ImageFormat.Png);
-            
+            BuildRegions();
+            int count = 0;
             for (int i = 0; i < hPieceCount; i++)
             {
                 for (int j = 0; j < vPieceCount; j++)
@@ -135,12 +144,29 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     int xOffset = pieceCenter * i;
                     int yOffset = pieceCenter * j;
                     Bitmap bitmap = paddedBitmap.Clone(new Rectangle(xOffset, yOffset, pieceSize, pieceSize), paddedBitmap.PixelFormat);
+
+                    
+
+                    Graphics g2 = Graphics.FromImage(bitmap);
+
+                    if (count % 2 == 1)
+                    {
+                        g2.ExcludeClip(region1);
+                    }
+                    else
+                    {
+                        g2.ExcludeClip(region2);
+                    }
+                    
+                    g2.Clear(Color.Transparent);
+                    count++;
+
                     BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
                     borderBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     BitmapImage borderBitmapImage = ConvertToBitmapImage(borderBitmap);
-                    maskBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
-                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize);
+                    //maskBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                    //BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
+                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize);
 
                     //Canvas.SetLeft(puzzlePiece, xOffset - padding);
                     //Canvas.SetLeft(puzzlePiece, 0);
@@ -154,6 +180,24 @@ namespace Jigsaw_Puzzle_Generator_WPF
                 }
             }
         }
+
+        private void BuildRegions()
+        {
+            GraphicsPath graphicsPath1 = new();
+
+            foreach (var segment in SvgPathBuilder.Parse(pathData1))
+                segment.AddToPath(graphicsPath1);
+
+            region1 = new Region(graphicsPath1);
+
+            GraphicsPath graphicsPath2 = new();
+
+            foreach (var segment in SvgPathBuilder.Parse(pathData2))
+                segment.AddToPath(graphicsPath2);
+
+            region2 = new Region(graphicsPath2);
+        }
+
         private void OnPieceSnap(object sender, bool e)
         {
             soundPlayer.Play();
