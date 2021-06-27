@@ -21,8 +21,10 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
         private double destinationX;
         private double destinationY;
         private double precision = 10;
+        private int originalZIndex;
+        private int dragZIndex;
         private UIElement container;
-        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage borderBitmap, double x, double y, int pieceSize)
+        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage borderBitmap, double x, double y, int pieceSize, int zIndex, int maxZindex)
         {
             InitializeComponent();
 
@@ -37,6 +39,8 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
 
             destinationX = x;
             destinationY = y;
+            originalZIndex = zIndex;
+            dragZIndex = maxZindex;
 
             container = VisualTreeHelper.GetParent(this) as UIElement;
         }
@@ -47,6 +51,7 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
             _positionInBlock = Mouse.GetPosition(container);
             dragStartX = Canvas.GetLeft(this);
             dragStartY = Canvas.GetTop(this);
+            Canvas.SetZIndex(this, dragZIndex);
 
             // capture the mouse (so the mouse move events are still triggered (even when the mouse is not above the control)
             CaptureMouse();
@@ -74,6 +79,7 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
             {
                 Canvas.SetLeft(this, destinationX);
                 Canvas.SetTop(this, destinationY);
+                
                 this.MouseDown -= UserControl_MouseDown;
                 this.MouseUp -= UserControl_MouseUp;
                 this.MouseMove -= UserControl_MouseMove;
@@ -82,6 +88,9 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
                 borderImage.Opacity = 0.2;
                 SnapEventHandler.Invoke(this, true);
             }
+
+            Canvas.SetZIndex(this, originalZIndex);
+
             // release this control.
             ReleaseMouseCapture();
         }

@@ -145,8 +145,6 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     int yOffset = pieceCenter * j;
                     Bitmap bitmap = paddedBitmap.Clone(new Rectangle(xOffset, yOffset, pieceSize, pieceSize), paddedBitmap.PixelFormat);
 
-                    
-
                     Graphics g2 = Graphics.FromImage(bitmap);
 
                     if (count % 2 == 1)
@@ -159,14 +157,13 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     }
                     
                     g2.Clear(Color.Transparent);
-                    count++;
 
                     BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
                     borderBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     BitmapImage borderBitmapImage = ConvertToBitmapImage(borderBitmap);
                     //maskBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     //BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
-                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize);
+                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize, count + 1, totalPieces + 1);
 
                     //Canvas.SetLeft(puzzlePiece, xOffset - padding);
                     //Canvas.SetLeft(puzzlePiece, 0);
@@ -174,9 +171,12 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     //Canvas.SetTop(puzzlePiece, yOffset - padding);
                     //Canvas.SetTop(puzzlePiece, 0);
                     Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
+                    Canvas.SetZIndex(puzzlePiece, count + 1);
                     puzzlePiece.SnapEventHandler += OnPieceSnap;
                     puzzlePieces.Add(puzzlePiece);
                     puzzleCanvas.Children.Add(puzzlePiece);
+
+                    count++;
                 }
             }
         }
