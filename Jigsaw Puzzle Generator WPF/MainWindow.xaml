@@ -15,6 +15,7 @@
         <StackPanel Orientation="Horizontal">
             <Button Content="Browse" Width="60" Click="BrowseToImage" Margin="2"/>
             <Button Content="Add" Width="60" Click="AddPieceClick" Margin="2"/>
+            <Button Content="Reset" Width="60" Click="ResetPuzzleClick" Margin="2"/>
             <TextBlock x:Name="piecesTxt"/>
         </StackPanel>
 

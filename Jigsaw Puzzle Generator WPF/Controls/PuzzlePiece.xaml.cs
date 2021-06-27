@@ -85,5 +85,17 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
             // release this control.
             ReleaseMouseCapture();
         }
+
+        public void Reactivate()
+        {
+            this.MouseDown -= UserControl_MouseDown;
+            this.MouseUp -= UserControl_MouseUp;
+            this.MouseMove -= UserControl_MouseMove;
+            this.MouseDown += UserControl_MouseDown;
+            this.MouseUp += UserControl_MouseUp;
+            this.MouseMove += UserControl_MouseMove;
+            borderImage.Opacity = 1;
+            this.IsHitTestVisible = true;
+        }
     }
 }

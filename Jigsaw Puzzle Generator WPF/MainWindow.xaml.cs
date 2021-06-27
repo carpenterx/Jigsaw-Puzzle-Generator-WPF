@@ -1,6 +1,7 @@
 ﻿using Jigsaw_Puzzle_Generator_WPF.Controls;
 using Microsoft.Win32;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -9,6 +10,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using Rectangle = System.Drawing.Rectangle;
 
@@ -30,6 +32,12 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
         private int correctPieces;
         private int totalPieces;
+
+        private List<PuzzlePiece> puzzlePieces;
+
+        private int paddedWidth;
+        private int paddedHeight;
+        private int pieceSize;
 
         private Random random = new();
 
@@ -97,14 +105,15 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
         private void GeneratePieces()
         {
+            puzzlePieces = new();
             int width = b.Width;
             int height = b.Height;
             
-            int pieceSize = 480;
+            pieceSize = 480;
             int pieceCenter = 320;
             int padding = (pieceSize - pieceCenter) / 2;
-            int paddedWidth = padding + width + padding;
-            int paddedHeight = padding + height + padding;
+            paddedWidth = padding + width + padding;
+            paddedHeight = padding + height + padding;
             int hPieceCount = width / pieceCenter;
             int vPieceCount = height / pieceCenter;
 
@@ -140,6 +149,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     //Canvas.SetTop(puzzlePiece, 0);
                     Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
                     puzzlePiece.SnapEventHandler += OnPieceSnap;
+                    puzzlePieces.Add(puzzlePiece);
                     puzzleCanvas.Children.Add(puzzlePiece);
                 }
             }
@@ -155,6 +165,24 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private void UpdateProgress()
         {
             piecesTxt.Text = $"{correctPieces} pieces out of {totalPieces}";
+        }
+
+        private void ResetPuzzleClick(object sender, RoutedEventArgs e)
+        {
+            if (puzzlePieces.Count > 0)
+            {
+                foreach (PuzzlePiece puzzlePiece in puzzlePieces)
+                {
+                    Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
+                    Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
+                    puzzlePiece.Reactivate();
+                    puzzlePiece.SnapEventHandler -= OnPieceSnap;
+                    puzzlePiece.SnapEventHandler += OnPieceSnap;
+                }
+
+                correctPieces = 0;
+                UpdateProgress();
+            }
         }
     }
 }
