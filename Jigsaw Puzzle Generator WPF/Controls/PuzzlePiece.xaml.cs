@@ -21,9 +21,14 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
         private double precision = 10;
         private UIElement container;
         SoundPlayer player;
-        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap, double x, double y, SoundPlayer soundPlayer)
+        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap, double x, double y, SoundPlayer soundPlayer, int pieceSize)
         {
             InitializeComponent();
+
+            puzzleImage.Width = pieceSize;
+            puzzleImage.Height = pieceSize;
+            borderImage.Width = pieceSize;
+            borderImage.Height = pieceSize;
 
             borderImage.Source = borderBitmap;
             puzzleImage.Source = pieceBitmap;

@@ -94,8 +94,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
             int width = b.Width;
             int height = b.Height;
             
-            int pieceSize = 480;
-            int pieceCenter = 320;
+            int pieceSize = 240;
+            int pieceCenter = 160;
             int padding = (pieceSize - pieceCenter) / 2;
             int paddedWidth = padding + width + padding;
             int paddedHeight = padding + height + padding;
@@ -121,7 +121,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     BitmapImage borderBitmapImage = ConvertToBitmapImage(borderBitmap);
                     maskBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
-                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, soundPlayer);
+                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, soundPlayer, pieceSize);
 
                     Canvas.SetLeft(puzzlePiece, xOffset - padding);
                     //Canvas.SetLeft(puzzlePiece, 0);
