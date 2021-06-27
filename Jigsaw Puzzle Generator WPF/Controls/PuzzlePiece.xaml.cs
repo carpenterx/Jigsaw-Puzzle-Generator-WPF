@@ -13,6 +13,8 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
     /// </summary>
     public partial class PuzzlePiece : UserControl
     {
+        public event EventHandler<bool> SnapEventHandler;
+
         private Point _positionInBlock;
         private double dragStartX;
         private double dragStartY;
@@ -20,8 +22,7 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
         private double destinationY;
         private double precision = 10;
         private UIElement container;
-        SoundPlayer player;
-        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap, double x, double y, SoundPlayer soundPlayer, int pieceSize)
+        public PuzzlePiece(BitmapImage pieceBitmap, BitmapImage maskBitmap, BitmapImage borderBitmap, double x, double y, int pieceSize)
         {
             InitializeComponent();
 
@@ -36,8 +37,6 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
 
             destinationX = x;
             destinationY = y;
-
-            player = soundPlayer;
 
             container = VisualTreeHelper.GetParent(this) as UIElement;
         }
@@ -81,7 +80,7 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
                 this.IsHitTestVisible = false;
                 //borderImage.Visibility = Visibility.Hidden;
                 borderImage.Opacity = 0.2;
-                player.Play();
+                SnapEventHandler.Invoke(this, true);
             }
             // release this control.
             ReleaseMouseCapture();

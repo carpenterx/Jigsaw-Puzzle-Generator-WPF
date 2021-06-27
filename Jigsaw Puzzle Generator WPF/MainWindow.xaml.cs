@@ -7,6 +7,7 @@ using System.IO;
 using System.Media;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Rectangle = System.Drawing.Rectangle;
@@ -108,7 +109,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
             g.Clear(Color.White);
             g.DrawImageUnscaled(b, padding, padding);
             //paddedBitmap.Save(@"C:\Users\jorda\Desktop\padded.png", ImageFormat.Png);
-
+            
             for (int i = 0; i < hPieceCount; i++)
             {
                 for (int j = 0; j < vPieceCount; j++)
@@ -121,15 +122,21 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     BitmapImage borderBitmapImage = ConvertToBitmapImage(borderBitmap);
                     maskBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
-                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, soundPlayer, pieceSize);
+                    PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize);
 
                     Canvas.SetLeft(puzzlePiece, xOffset - padding);
                     //Canvas.SetLeft(puzzlePiece, 0);
                     Canvas.SetTop(puzzlePiece, yOffset - padding);
                     //Canvas.SetTop(puzzlePiece, 0);
+                    puzzlePiece.SnapEventHandler += OnPieceSnap;
                     puzzleCanvas.Children.Add(puzzlePiece);
                 }
             }
+        }
+        private void OnPieceSnap(object sender, bool e)
+        {
+            soundPlayer.Play();
+            (sender as PuzzlePiece).SnapEventHandler -= OnPieceSnap;
         }
     }
 }
