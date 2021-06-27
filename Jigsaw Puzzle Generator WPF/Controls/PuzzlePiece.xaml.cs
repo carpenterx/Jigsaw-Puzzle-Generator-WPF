@@ -79,7 +79,7 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
             {
                 Canvas.SetLeft(this, destinationX);
                 Canvas.SetTop(this, destinationY);
-                
+                Canvas.SetZIndex(this, 0);
                 this.MouseDown -= UserControl_MouseDown;
                 this.MouseUp -= UserControl_MouseUp;
                 this.MouseMove -= UserControl_MouseMove;
@@ -88,8 +88,10 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
                 borderImage.Opacity = 0.2;
                 SnapEventHandler.Invoke(this, true);
             }
-
-            Canvas.SetZIndex(this, originalZIndex);
+            else
+            {
+                Canvas.SetZIndex(this, originalZIndex);
+            }
 
             // release this control.
             ReleaseMouseCapture();
