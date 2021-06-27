@@ -105,7 +105,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
             Bitmap paddedBitmap = new Bitmap(paddedWidth, paddedHeight);
             paddedBitmap.SetResolution(96, 96);
             Graphics g = Graphics.FromImage(paddedBitmap);
-            //g.Clear(Color.White);
+            g.Clear(Color.White);
             g.DrawImageUnscaled(b, padding, padding);
             //paddedBitmap.Save(@"C:\Users\jorda\Desktop\padded.png", ImageFormat.Png);
 
@@ -124,7 +124,9 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage, maskBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, soundPlayer);
 
                     Canvas.SetLeft(puzzlePiece, xOffset - padding);
+                    //Canvas.SetLeft(puzzlePiece, 0);
                     Canvas.SetTop(puzzlePiece, yOffset - padding);
+                    //Canvas.SetTop(puzzlePiece, 0);
                     puzzleCanvas.Children.Add(puzzlePiece);
                 }
             }

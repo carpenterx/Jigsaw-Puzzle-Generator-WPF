@@ -70,6 +70,12 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
             {
                 Canvas.SetLeft(this, destinationX);
                 Canvas.SetTop(this, destinationY);
+                this.MouseDown -= UserControl_MouseDown;
+                this.MouseUp -= UserControl_MouseUp;
+                this.MouseMove -= UserControl_MouseMove;
+                this.IsHitTestVisible = false;
+                //borderImage.Visibility = Visibility.Hidden;
+                borderImage.Opacity = 0.2;
                 player.Play();
             }
             // release this control.
