@@ -28,6 +28,9 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private Bitmap borderBitmap;
         private Bitmap maskBitmap;
 
+        private int correctPieces;
+        private int totalPieces;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -103,6 +106,10 @@ namespace Jigsaw_Puzzle_Generator_WPF
             int hPieceCount = width / pieceCenter;
             int vPieceCount = height / pieceCenter;
 
+            correctPieces = 0;
+            totalPieces = hPieceCount * vPieceCount;
+            UpdateProgress();
+
             Bitmap paddedBitmap = new Bitmap(paddedWidth, paddedHeight);
             paddedBitmap.SetResolution(96, 96);
             Graphics g = Graphics.FromImage(paddedBitmap);
@@ -137,6 +144,13 @@ namespace Jigsaw_Puzzle_Generator_WPF
         {
             soundPlayer.Play();
             (sender as PuzzlePiece).SnapEventHandler -= OnPieceSnap;
+            correctPieces++;
+            UpdateProgress();
+        }
+
+        private void UpdateProgress()
+        {
+            piecesTxt.Text = $"{correctPieces} pieces out of {totalPieces}";
         }
     }
 }
