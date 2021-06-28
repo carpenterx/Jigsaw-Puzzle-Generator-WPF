@@ -13,6 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.WebRequestMethods;
+using Image = System.Windows.Controls.Image;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace Jigsaw_Puzzle_Generator_WPF
@@ -125,6 +126,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
             if (dlg.ShowDialog() == true)
             {
                 ShowImage(dlg.FileName);
+
+                //GeneratePieces();
             }
         }
 
@@ -133,12 +136,18 @@ namespace Jigsaw_Puzzle_Generator_WPF
             b = new Bitmap(imagePath);
             b.SetResolution(96, 96);
             BitmapImage bitmapImage = ConvertToBitmapImage(b);
+            puzzleCanvas.Children.Clear();
             puzzleCanvas.Width = bitmapImage.PixelWidth;
             puzzleCanvas.Height = bitmapImage.PixelHeight;
 
+            //<Image x:Name="image" Stretch="None" Opacity="0.7"/>
+            Image image = new();
+            image.Stretch = System.Windows.Media.Stretch.None;
+            image.Opacity = 0.7;
             image.Source = bitmapImage;
             image.Width = bitmapImage.PixelWidth;
             image.Height = bitmapImage.PixelHeight;
+            puzzleCanvas.Children.Add(image);
         }
 
         private BitmapImage ConvertToBitmapImage(Bitmap bitmap)
