@@ -6,6 +6,31 @@
         xmlns:local="clr-namespace:Jigsaw_Puzzle_Generator_WPF"
         mc:Ignorable="d"
         Title="Jigsaw Puzzle Generator" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid>
+                                <Rectangle x:Name="background"
+                                   Fill="{TemplateBinding Background}"/>
+                                <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="background" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid Margin="4">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -13,10 +38,24 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <Button Content="Browse" Width="60" Click="BrowseToImage" Margin="2"/>
-            <Button Content="Add" Width="60" Click="AddPieceClick" Margin="2"/>
-            <Button Content="Reset" Width="60" Click="ResetPuzzleClick" Margin="2"/>
-            <TextBlock x:Name="piecesTxt"/>
+            <Button Width="90" Height="34" Content="Browse" BorderBrush="Transparent" Click="BrowseToImage" Margin="2" Padding="2" FontSize="18">
+                <Button.Background>
+                    <ImageBrush ImageSource="/blue_button13.png" Stretch="Fill" />
+                </Button.Background>
+            </Button>
+            <!--<Button Content="Add" Width="60" Click="AddPieceClick" Margin="2"/>-->
+            <Button Width="90" Height="34" Content="Add" BorderBrush="Transparent" Click="AddPieceClick" Margin="2" Padding="2" FontSize="18">
+                <Button.Background>
+                    <ImageBrush ImageSource="/green_button13.png" Stretch="Fill" />
+                </Button.Background>
+            </Button>
+            <!--<Button Content="Reset" Width="60" Click="ResetPuzzleClick" Margin="2"/>-->
+            <Button Width="90" Height="34" Content="Reset" BorderBrush="Transparent" Click="ResetPuzzleClick" Margin="2" Padding="2" FontSize="18">
+                <Button.Background>
+                    <ImageBrush ImageSource="/red_button10.png" Stretch="Fill" />
+                </Button.Background>
+            </Button>
+            <TextBlock x:Name="piecesTxt" d:Text="0 out of 10 pieces" FontSize="18" Margin="2" Padding="2" VerticalAlignment="Center"/>
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">

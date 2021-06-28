@@ -258,7 +258,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
         private void UpdateProgress()
         {
-            piecesTxt.Text = $"{correctPieces} pieces out of {totalPieces}";
+            piecesTxt.Text = $"{correctPieces}/{totalPieces} pieces";
         }
 
         private void ResetPuzzleClick(object sender, RoutedEventArgs e)
