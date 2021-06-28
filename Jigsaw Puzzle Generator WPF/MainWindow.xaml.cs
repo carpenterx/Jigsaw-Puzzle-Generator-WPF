@@ -22,14 +22,14 @@ namespace Jigsaw_Puzzle_Generator_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string IMAGE_PATH = @"C:\Users\jorda\Desktop\pexels-julia-volk-5273517.jpg";
+        private const string IMAGE_PATH = @"C:\Users\jorda\Desktop\jigsaw\pexels-julia-volk-5273517.jpg";
         //private const string BORDER_PATH = @"C:\Users\jorda\Desktop\puzzle border new.png";
         //private const string MASK_PATH = @"C:\Users\jorda\Desktop\puzzle mask new.png";
-        private const string BORDER_CORNER_PATH = @"C:\Users\jorda\Desktop\puzzle border corner.png";
-        private const string BORDER_CURVE_PATH = @"C:\Users\jorda\Desktop\puzzle border curved.png";
-        private const string BORDER_INSIDE_PATH = @"C:\Users\jorda\Desktop\puzzle border inside.png";
-        private const string BORDER_LINE_PATH = @"C:\Users\jorda\Desktop\puzzle border straight.png";
-        private const string SOUND_PATH = @"C:\Users\jorda\Desktop\click2.wav";
+        private const string BORDER_CORNER_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border corner.png";
+        private const string BORDER_CURVE_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border curved.png";
+        private const string BORDER_INSIDE_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border inside.png";
+        private const string BORDER_LINE_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border straight.png";
+        private const string SOUND_PATH = @"C:\Users\jorda\Desktop\jigsaw\click2.wav";
         private SoundPlayer soundPlayer = new SoundPlayer(SOUND_PATH);
         private Bitmap b;
         private Bitmap borderBitmap;
@@ -49,9 +49,9 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private int paddedHeight;
         private int pieceSize;
 
-        private string pathData1 = "M 400 200 v -120 h -120 c 0 22 40 80 -40 80 s -40 -58 -40 -80 h -120 v 120 c -22 0 -80 -40 -80 40 s 58 40 80 40 v 120 h 120 c 0 -22 -40 -80 40 -80 s 40 58 40 80 h 120 v -120 c 22 0 80 40 80 -40 s -58 -40 -80 -40 Z";
+        private string pathData1 = "M 400 200 v -120 h -120 c 0 22 40 78 -40 78 s -40 -58 -40 -78 h -120 v 120 c -22 0 -78 -40 -78 40 s 58 40 78 40 v 120 h 120 c 0 -22 -40 -78 40 -78 s 40 58 40 78 h 120 v -120 c 22 0 78 40 78 -40 s -58 -40 -78 -40 Z";
 
-        private string pathData2 = "M 400 200 v -120 h -120 c 0 -22 40 -80 -40 -80 s -40 58 -40 80 h -120 v 120 c 22 0 80 -40 80 40 s -58 40 -80 40 v 120 h 120 c 0 22 -40 80 40 80 s 40 -58 40 -80 h 120 v -120 c -22 0 -80 40 -80 -40 s 58 -40 80 -40 Z";
+        private string pathData2 = "M 400 200 v -120 h -120 c 0 -22 40 -78 -40 -78 s -40 58 -40 78 h -120 v 120 c 22 0 78 -40 78 40 s -58 40 -78 40 v 120 h 120 c 0 22 -40 78 40 78 s 40 -58 40 -78 h 120 v -120 c -22 0 -78 40 -78 -40 s 58 -40 78 -40 Z";
 
         Region region1;
         Region region2;
@@ -217,10 +217,10 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     //BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize, count + 1, totalPieces + 1);
 
-                    //Canvas.SetLeft(puzzlePiece, xOffset - padding);
-                    Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
-                    //Canvas.SetTop(puzzlePiece, yOffset - padding);
-                    Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
+                    Canvas.SetLeft(puzzlePiece, xOffset - padding);
+                    //Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
+                    Canvas.SetTop(puzzlePiece, yOffset - padding);
+                    //Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
                     Canvas.SetZIndex(puzzlePiece, count + 1);
                     puzzlePiece.SnapEventHandler += OnPieceSnap;
                     puzzlePieces.Add(puzzlePiece);
