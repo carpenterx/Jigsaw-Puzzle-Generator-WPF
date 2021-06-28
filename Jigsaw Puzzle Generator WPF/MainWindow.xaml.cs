@@ -185,9 +185,11 @@ namespace Jigsaw_Puzzle_Generator_WPF
             //paddedBitmap.Save(@"C:\Users\jorda\Desktop\padded.png", ImageFormat.Png);
             BuildRegions();
             int count = 0;
-            for (int i = 0; i < hPieceCount; i++)
+            //for (int i = 0; i < hPieceCount; i++)
+            for (int j = 0; j < vPieceCount; j++)
             {
-                for (int j = 0; j < vPieceCount; j++)
+                //for (int j = 0; j < vPieceCount; j++)
+                for (int i = 0; i < hPieceCount; i++)
                 {
                     int xOffset = pieceCenter * i;
                     int yOffset = pieceCenter * j;
@@ -195,7 +197,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
                     Graphics g2 = Graphics.FromImage(bitmap);
 
-                    if (count % 2 == 1)
+                    if ((j + i) % 2 == 1)
                     {
                         g2.ExcludeClip(region1);
                     }
@@ -209,8 +211,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
                     borderBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                     BitmapImage borderBitmapImage = ConvertToBitmapImage(borderBitmap);
-                    //maskBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    //BitmapImage maskBitmapImage = ConvertToBitmapImage(maskBitmap);
+
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize, count + 1, totalPieces + 1);
 
                     Canvas.SetLeft(puzzlePiece, xOffset - padding);
@@ -223,6 +224,11 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     puzzleCanvas.Children.Add(puzzlePiece);
 
                     count++;
+                }
+
+                if (hPieceCount % 2 == 0)
+                {
+                    borderBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                 }
             }
         }

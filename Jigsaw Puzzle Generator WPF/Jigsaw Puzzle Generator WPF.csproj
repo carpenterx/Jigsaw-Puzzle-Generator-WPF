@@ -10,10 +10,6 @@
 
   <ItemGroup>
     <None Remove="blue_button13.png" />
-    <None Remove="Controls\puzzle border new.png" />
-    <None Remove="Controls\puzzle border.png" />
-    <None Remove="Controls\puzzle mask new.png" />
-    <None Remove="Controls\puzzle mask.png" />
     <None Remove="green_button13.png" />
     <None Remove="red_button10.png" />
   </ItemGroup>
@@ -25,10 +21,6 @@
 
   <ItemGroup>
     <Resource Include="blue_button13.png" />
-    <Resource Include="Controls\puzzle border new.png" />
-    <Resource Include="Controls\puzzle border.png" />
-    <Resource Include="Controls\puzzle mask new.png" />
-    <Resource Include="Controls\puzzle mask.png" />
     <Resource Include="green_button13.png" />
     <Resource Include="red_button10.png" />
   </ItemGroup>
