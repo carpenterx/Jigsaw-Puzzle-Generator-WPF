@@ -11,7 +11,7 @@
              MouseMove="UserControl_MouseMove">
     <Grid>
         <local:PuzzleImage x:Name="puzzleImage"/>
-        <Image x:Name="borderImage" Source="/Controls/puzzle border new.png" IsHitTestVisible="False"/>
+        <Image x:Name="borderImage" IsHitTestVisible="False"/>
     </Grid>
     
     <!--<Grid>

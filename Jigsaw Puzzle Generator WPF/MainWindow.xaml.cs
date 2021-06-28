@@ -23,13 +23,22 @@ namespace Jigsaw_Puzzle_Generator_WPF
     public partial class MainWindow : Window
     {
         private const string IMAGE_PATH = @"C:\Users\jorda\Desktop\pexels-julia-volk-5273517.jpg";
-        private const string BORDER_PATH = @"C:\Users\jorda\Desktop\puzzle border new.png";
-        private const string MASK_PATH = @"C:\Users\jorda\Desktop\puzzle mask new.png";
+        //private const string BORDER_PATH = @"C:\Users\jorda\Desktop\puzzle border new.png";
+        //private const string MASK_PATH = @"C:\Users\jorda\Desktop\puzzle mask new.png";
+        private const string BORDER_CORNER_PATH = @"C:\Users\jorda\Desktop\puzzle border corner.png";
+        private const string BORDER_CURVE_PATH = @"C:\Users\jorda\Desktop\puzzle border curved.png";
+        private const string BORDER_INSIDE_PATH = @"C:\Users\jorda\Desktop\puzzle border inside.png";
+        private const string BORDER_LINE_PATH = @"C:\Users\jorda\Desktop\puzzle border straight.png";
         private const string SOUND_PATH = @"C:\Users\jorda\Desktop\click2.wav";
         private SoundPlayer soundPlayer = new SoundPlayer(SOUND_PATH);
         private Bitmap b;
         private Bitmap borderBitmap;
         //private Bitmap maskBitmap;
+
+        private Bitmap borderCornerBitmap;
+        private Bitmap borderCurveBitmap;
+        private Bitmap borderInsideBitmap;
+        private Bitmap borderLineBitmap;
 
         private int correctPieces;
         private int totalPieces;
@@ -55,13 +64,56 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
             ShowImage(IMAGE_PATH);
 
-            borderBitmap = new Bitmap(BORDER_PATH);
-            borderBitmap.SetResolution(96, 96);
+            //borderBitmap = new Bitmap(BORDER_PATH);
+            //borderBitmap.SetResolution(96, 96);
+
+            borderCornerBitmap = new Bitmap(BORDER_CORNER_PATH);
+            borderCornerBitmap.SetResolution(96, 96);
+
+            borderCurveBitmap = new Bitmap(BORDER_CURVE_PATH);
+            borderCurveBitmap.SetResolution(96, 96);
+
+            borderInsideBitmap = new Bitmap(BORDER_INSIDE_PATH);
+            borderInsideBitmap.SetResolution(96, 96);
+
+            borderLineBitmap = new Bitmap(BORDER_LINE_PATH);
+            borderLineBitmap.SetResolution(96, 96);
+
+            BuildBorderBitmap();
 
             //maskBitmap = new Bitmap(MASK_PATH);
             //maskBitmap.SetResolution(96, 96);
 
             soundPlayer.Load();
+        }
+
+        private void BuildBorderBitmap()
+        {
+            borderBitmap = new Bitmap(480, 480);
+            borderBitmap.SetResolution(96, 96);
+            Graphics g = Graphics.FromImage(borderBitmap);
+
+            g.DrawImageUnscaled(borderCornerBitmap, 0, 0);
+
+            g.DrawImageUnscaled(borderInsideBitmap, 165, 0);
+
+            borderCornerBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            g.DrawImageUnscaled(borderCornerBitmap, 315, 0);
+
+            borderCurveBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            g.DrawImageUnscaled(borderCurveBitmap, 315, 165);
+
+            borderCornerBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            g.DrawImageUnscaled(borderCornerBitmap, 315, 315);
+
+            borderInsideBitmap.RotateFlip(RotateFlipType.RotateNoneFlipY);
+            g.DrawImageUnscaled(borderInsideBitmap, 165, 315);
+
+            borderCornerBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
+            g.DrawImageUnscaled(borderCornerBitmap, 0, 315);
+
+            borderCurveBitmap.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            g.DrawImageUnscaled(borderCurveBitmap, 0, 165);
         }
 
         private void BrowseToImage(object sender, RoutedEventArgs e)
@@ -166,10 +218,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize, count + 1, totalPieces + 1);
 
                     //Canvas.SetLeft(puzzlePiece, xOffset - padding);
-                    //Canvas.SetLeft(puzzlePiece, 0);
                     Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
                     //Canvas.SetTop(puzzlePiece, yOffset - padding);
-                    //Canvas.SetTop(puzzlePiece, 0);
                     Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
                     Canvas.SetZIndex(puzzlePiece, count + 1);
                     puzzlePiece.SnapEventHandler += OnPieceSnap;
