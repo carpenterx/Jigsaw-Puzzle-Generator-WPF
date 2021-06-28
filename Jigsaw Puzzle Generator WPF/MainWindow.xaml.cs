@@ -11,8 +11,6 @@ using System.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static System.Net.WebRequestMethods;
 using Image = System.Windows.Controls.Image;
 using Rectangle = System.Drawing.Rectangle;
 
@@ -24,8 +22,6 @@ namespace Jigsaw_Puzzle_Generator_WPF
     public partial class MainWindow : Window
     {
         private const string IMAGE_PATH = @"C:\Users\jorda\Desktop\jigsaw\pexels-julia-volk-5273517.jpg";
-        //private const string BORDER_PATH = @"C:\Users\jorda\Desktop\puzzle border new.png";
-        //private const string MASK_PATH = @"C:\Users\jorda\Desktop\puzzle mask new.png";
         private const string BORDER_CORNER_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border corner.png";
         private const string BORDER_CURVE_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border curved.png";
         private const string BORDER_INSIDE_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border inside.png";
@@ -34,7 +30,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private SoundPlayer soundPlayer = new SoundPlayer(SOUND_PATH);
         private Bitmap b;
         private Bitmap borderBitmap;
-        //private Bitmap maskBitmap;
+        private Bitmap rotatedBorderBitmap;
+        private Bitmap currentBorderBitmap;
 
         private Bitmap borderCornerBitmap;
         private Bitmap borderCurveBitmap;
@@ -65,9 +62,6 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
             ShowImage(IMAGE_PATH);
 
-            //borderBitmap = new Bitmap(BORDER_PATH);
-            //borderBitmap.SetResolution(96, 96);
-
             borderCornerBitmap = new Bitmap(BORDER_CORNER_PATH);
             borderCornerBitmap.SetResolution(96, 96);
 
@@ -81,9 +75,6 @@ namespace Jigsaw_Puzzle_Generator_WPF
             borderLineBitmap.SetResolution(96, 96);
 
             BuildBorderBitmap();
-
-            //maskBitmap = new Bitmap(MASK_PATH);
-            //maskBitmap.SetResolution(96, 96);
 
             soundPlayer.Load();
         }
@@ -115,6 +106,9 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
             borderCurveBitmap.RotateFlip(RotateFlipType.RotateNoneFlipX);
             g.DrawImageUnscaled(borderCurveBitmap, 0, 165);
+
+            rotatedBorderBitmap = borderBitmap.Clone(new Rectangle(0, 0, borderBitmap.Width, borderBitmap.Height), borderBitmap.PixelFormat);
+            rotatedBorderBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
         }
 
         private void BrowseToImage(object sender, RoutedEventArgs e)
@@ -194,10 +188,9 @@ namespace Jigsaw_Puzzle_Generator_WPF
             //paddedBitmap.Save(@"C:\Users\jorda\Desktop\padded.png", ImageFormat.Png);
             BuildRegions();
             int count = 0;
-            //for (int i = 0; i < hPieceCount; i++)
+            currentBorderBitmap = borderBitmap;
             for (int j = 0; j < vPieceCount; j++)
             {
-                //for (int j = 0; j < vPieceCount; j++)
                 for (int i = 0; i < hPieceCount; i++)
                 {
                     int xOffset = pieceCenter * i;
@@ -209,17 +202,18 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     if ((j + i) % 2 == 1)
                     {
                         g2.ExcludeClip(region1);
+                        currentBorderBitmap = borderBitmap;
                     }
                     else
                     {
                         g2.ExcludeClip(region2);
+                        currentBorderBitmap = rotatedBorderBitmap;
                     }
                     
                     g2.Clear(Color.Transparent);
 
                     BitmapImage croppedBitmapImage = ConvertToBitmapImage(bitmap);
-                    borderBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
-                    BitmapImage borderBitmapImage = ConvertToBitmapImage(borderBitmap);
+                    BitmapImage borderBitmapImage = ConvertToBitmapImage(currentBorderBitmap);
 
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage,borderBitmapImage, xOffset - padding, yOffset - padding, pieceSize, count + 1, totalPieces + 1);
 
@@ -233,11 +227,6 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     puzzleCanvas.Children.Add(puzzlePiece);
 
                     count++;
-                }
-
-                if (hPieceCount % 2 == 0)
-                {
-                    borderBitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
                 }
             }
         }
