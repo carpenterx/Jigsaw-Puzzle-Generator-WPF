@@ -120,13 +120,9 @@ namespace Jigsaw_Puzzle_Generator_WPF
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.DefaultExt = ".jpg"; // Default file extension
-            dlg.Filter = "JPG documents (.jpg)|*.jpg"; // Filter files by extension
+            dlg.Filter = "Image Files(*.Bmp;*.Jpg;*.Png)|*.Bmp;*.Jpg;*.Png";
 
-            // Show open file dialog box
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Process open file dialog box results
-            if (result == true)
+            if (dlg.ShowDialog() == true)
             {
                 ShowImage(dlg.FileName);
             }
