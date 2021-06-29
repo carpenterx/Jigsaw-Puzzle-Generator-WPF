@@ -44,11 +44,11 @@
                 </Button.Background>
             </Button>
             <!--<Button Content="Add" Width="60" Click="AddPieceClick" Margin="2"/>-->
-            <Button Width="90" Height="34" Content="Start" BorderBrush="Transparent" Click="StartClick" Margin="2" Padding="2" FontSize="18">
+            <!--<Button Width="90" Height="34" Content="Start" BorderBrush="Transparent" Click="StartClick" Margin="2" Padding="2" FontSize="18">
                 <Button.Background>
                     <ImageBrush ImageSource="/green_button13.png" Stretch="Fill" />
                 </Button.Background>
-            </Button>
+            </Button>-->
             <!--<Button Content="Reset" Width="60" Click="ResetPuzzleClick" Margin="2"/>-->
             <Button Width="90" Height="34" Content="Reset" BorderBrush="Transparent" Click="ResetPuzzleClick" Margin="2" Padding="2" FontSize="18">
                 <Button.Background>
