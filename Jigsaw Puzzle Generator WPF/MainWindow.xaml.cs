@@ -258,10 +258,10 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage,borderBitmapImage, xOffset, yOffset, pieceSize, count, totalPieces + 1);
 
-                    Canvas.SetLeft(puzzlePiece, xOffset);
-                    //Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
-                    Canvas.SetTop(puzzlePiece, yOffset);
-                    //Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
+                    //Canvas.SetLeft(puzzlePiece, xOffset);
+                    Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
+                    //Canvas.SetTop(puzzlePiece, yOffset);
+                    Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
                     Canvas.SetZIndex(puzzlePiece, count);
                     puzzlePiece.SnapEventHandler += OnPieceSnap;
                     puzzlePieces.Add(puzzlePiece);
