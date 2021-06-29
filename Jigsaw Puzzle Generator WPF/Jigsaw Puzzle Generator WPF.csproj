@@ -5,13 +5,19 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Jigsaw_Puzzle_Generator_WPF</RootNamespace>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Images\Jigsaw_icon-icons.com_75331.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Jigsaw_icon-icons.com_75331.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="blue_button13.png" />
     <None Remove="green_button13.png" />
+    <None Remove="Resources\click2.wav" />
+    <None Remove="Resources\pexels-julia-volk-5273517.jpg" />
+    <None Remove="Resources\puzzle border corner.png" />
     <None Remove="red_button10.png" />
+    <None Remove="Resources\puzzle border curved.png" />
+    <None Remove="Resources\puzzle border inside.png" />
+    <None Remove="Resources\puzzle border straight.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,9 +26,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\blue_button13.png" />
-    <Resource Include="Images\green_button13.png" />
-    <Resource Include="Images\red_button10.png" />
+    <Resource Include="Resources\blue_button13.png" />
+    <Resource Include="Resources\green_button13.png" />
+    <EmbeddedResource Include="Resources\click2.wav" />
+    <EmbeddedResource Include="Resources\pexels-julia-volk-5273517.jpg" />
+    <EmbeddedResource Include="Resources\puzzle border corner.png" />
+    <EmbeddedResource Include="Resources\puzzle border curved.png" />
+    <EmbeddedResource Include="Resources\puzzle border inside.png" />
+    <EmbeddedResource Include="Resources\puzzle border straight.png" />
+    <Resource Include="Resources\red_button10.png" />
   </ItemGroup>
 
 </Project>

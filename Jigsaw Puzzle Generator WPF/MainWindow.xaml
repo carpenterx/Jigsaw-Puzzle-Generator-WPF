@@ -40,7 +40,7 @@
         <StackPanel Orientation="Horizontal">
             <Button Width="90" Height="34" Content="Browse" BorderBrush="Transparent" Click="BrowseToImage" Margin="2" Padding="2" FontSize="18">
                 <Button.Background>
-                    <ImageBrush ImageSource="Images/blue_button13.png" Stretch="Fill" />
+                    <ImageBrush ImageSource="Resources/blue_button13.png" Stretch="Fill" />
                 </Button.Background>
             </Button>
             <!--<Button Content="Add" Width="60" Click="AddPieceClick" Margin="2"/>-->
@@ -52,7 +52,7 @@
             <!--<Button Content="Reset" Width="60" Click="ResetPuzzleClick" Margin="2"/>-->
             <Button Width="90" Height="34" Content="Reset" BorderBrush="Transparent" Click="ResetPuzzleClick" Margin="2" Padding="2" FontSize="18">
                 <Button.Background>
-                    <ImageBrush ImageSource="Images/red_button10.png" Stretch="Fill" />
+                    <ImageBrush ImageSource="Resources/red_button10.png" Stretch="Fill" />
                 </Button.Background>
             </Button>
             <TextBlock x:Name="piecesTxt" d:Text="0 out of 10 pieces" FontSize="18" Margin="2" Padding="2" VerticalAlignment="Center"/>

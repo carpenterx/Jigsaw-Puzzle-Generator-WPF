@@ -8,6 +8,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Media;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -21,13 +22,13 @@ namespace Jigsaw_Puzzle_Generator_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string IMAGE_PATH = @"C:\Users\jorda\Desktop\jigsaw\pexels-julia-volk-5273517.jpg";
-        private const string BORDER_CORNER_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border corner.png";
-        private const string BORDER_CURVE_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border curved.png";
-        private const string BORDER_INSIDE_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border inside.png";
-        private const string BORDER_LINE_PATH = @"C:\Users\jorda\Desktop\jigsaw\puzzle border straight.png";
-        private const string SOUND_PATH = @"C:\Users\jorda\Desktop\jigsaw\click2.wav";
-        private SoundPlayer soundPlayer = new SoundPlayer(SOUND_PATH);
+        private const string IMAGE_NAME = "pexels-julia-volk-5273517.jpg";
+        private const string BORDER_CORNER_NAME = "puzzle border corner.png";
+        private const string BORDER_CURVE_NAME = "puzzle border curved.png";
+        private const string BORDER_INSIDE_NAME = "puzzle border inside.png";
+        private const string BORDER_LINE_NAME = "puzzle border straight.png";
+        private const string SOUND_NAME = "click2.wav";
+        private SoundPlayer soundPlayer;
         //private Bitmap b;
         private Bitmap borderBitmap;
         private Bitmap rotatedBorderBitmap;
@@ -60,27 +61,47 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
         private Random random = new();
 
+        private static readonly string APP_RESOURCES_NAMESPACE = "Jigsaw_Puzzle_Generator_WPF.Resources.";
+
         public MainWindow()
         {
             InitializeComponent();
 
-            borderCornerBitmap = new Bitmap(BORDER_CORNER_PATH);
+            soundPlayer = new SoundPlayer(GetResourceStream(SOUND_NAME));
+
+            //borderCornerBitmap = new Bitmap(BORDER_CORNER_PATH);
+            borderCornerBitmap = new Bitmap(GetResourceStream(BORDER_CORNER_NAME));
             borderCornerBitmap.SetResolution(96, 96);
 
-            borderCurveBitmap = new Bitmap(BORDER_CURVE_PATH);
+            borderCurveBitmap = new Bitmap(GetResourceStream(BORDER_CURVE_NAME));
             borderCurveBitmap.SetResolution(96, 96);
 
-            borderInsideBitmap = new Bitmap(BORDER_INSIDE_PATH);
+            borderInsideBitmap = new Bitmap(GetResourceStream(BORDER_INSIDE_NAME));
             borderInsideBitmap.SetResolution(96, 96);
 
-            borderLineBitmap = new Bitmap(BORDER_LINE_PATH);
+            borderLineBitmap = new Bitmap(GetResourceStream(BORDER_LINE_NAME));
             borderLineBitmap.SetResolution(96, 96);
 
             BuildBorderBitmap();
 
             soundPlayer.Load();
 
-            GeneratePieces(IMAGE_PATH);
+            GeneratePieces(GetBitmap(GetResourceStream(IMAGE_NAME)));
+        }
+
+        private Stream GetResourceStream(string resourceName)
+        {
+            return Assembly.GetExecutingAssembly().GetManifestResourceStream(APP_RESOURCES_NAMESPACE + resourceName);
+        }
+
+        private Bitmap GetBitmap(string filePath)
+        {
+            return new Bitmap(filePath);
+        }
+
+        private Bitmap GetBitmap(Stream stream)
+        {
+            return new Bitmap(stream);
         }
 
         private void BuildBorderBitmap()
@@ -125,30 +146,9 @@ namespace Jigsaw_Puzzle_Generator_WPF
 
             if (dlg.ShowDialog() == true)
             {
-                //ShowImage(dlg.FileName);
-
-                GeneratePieces(dlg.FileName);
+                GeneratePieces(GetBitmap(dlg.FileName));
             }
         }
-
-        /*private void ShowImage(string imagePath)
-        {
-            b = new Bitmap(imagePath);
-            b.SetResolution(96, 96);
-            BitmapImage bitmapImage = ConvertToBitmapImage(b);
-            puzzleCanvas.Children.Clear();
-            puzzleCanvas.Width = bitmapImage.PixelWidth;
-            puzzleCanvas.Height = bitmapImage.PixelHeight;
-
-            //<Image x:Name="image" Stretch="None" Opacity="0.7"/>
-            Image image = new();
-            image.Stretch = System.Windows.Media.Stretch.None;
-            image.Opacity = 0.7;
-            image.Source = bitmapImage;
-            image.Width = bitmapImage.PixelWidth;
-            image.Height = bitmapImage.PixelHeight;
-            puzzleCanvas.Children.Add(image);
-        }*/
 
         private BitmapImage ConvertToBitmapImage(Bitmap bitmap)
         {
@@ -168,14 +168,11 @@ namespace Jigsaw_Puzzle_Generator_WPF
             GeneratePieces();
         }*/
 
-        private void GeneratePieces(string imagePath)
+        private void GeneratePieces(Bitmap b)
         {
-            Bitmap b = new Bitmap(imagePath);
+            //Bitmap b = new Bitmap(imagePath);
             b.SetResolution(96, 96);
-            //BitmapImage bitmapImage = ConvertToBitmapImage(b);
            
-
-
             puzzlePieces = new();
             int width = b.Width;
             int height = b.Height;
