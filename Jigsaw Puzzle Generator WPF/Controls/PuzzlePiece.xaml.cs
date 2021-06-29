@@ -28,8 +28,8 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
         {
             InitializeComponent();
 
-            puzzleImage.Width = pieceSize - 2;
-            puzzleImage.Height = pieceSize - 2;
+            puzzleImage.Width = pieceSize - 1;
+            puzzleImage.Height = pieceSize - 1;
             borderImage.Width = pieceSize;
             borderImage.Height = pieceSize;
 
