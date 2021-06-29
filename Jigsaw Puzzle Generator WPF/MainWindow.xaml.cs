@@ -199,8 +199,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
             int leftPadding = ((hPieceCount * pieceCenter) - width) / 2;
             int rightPadding = (hPieceCount * pieceCenter) - width - leftPadding;
             int topPadding = ((vPieceCount * pieceCenter) - height) / 2;
-            int bottomPadding = (vPieceCount * pieceCenter) - height - topPadding; ;
-            paddedWidth = basePadding + leftPadding + width + rightPadding + basePadding;
+            int bottomPadding = (vPieceCount * pieceCenter) - height - topPadding;
+            paddedWidth = basePadding + leftPadding + width + rightPadding + basePadding + pieceSize + pieceSize;
             paddedHeight = basePadding + topPadding + height + bottomPadding + basePadding;
 
             Bitmap paddedBitmap = new Bitmap(paddedWidth, paddedHeight);
@@ -256,7 +256,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
                     PuzzlePiece puzzlePiece = new PuzzlePiece(croppedBitmapImage,borderBitmapImage, xOffset, yOffset, pieceSize, count, totalPieces + 1);
 
                     //Canvas.SetLeft(puzzlePiece, xOffset);
-                    Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
+                    //Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
+                    Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize - pieceSize, paddedWidth - pieceSize));
                     //Canvas.SetTop(puzzlePiece, yOffset);
                     Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
                     Canvas.SetZIndex(puzzlePiece, count);
@@ -305,7 +306,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
             {
                 foreach (PuzzlePiece puzzlePiece in puzzlePieces)
                 {
-                    Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize));
+                    Canvas.SetLeft(puzzlePiece, random.Next(paddedWidth - pieceSize - pieceSize, paddedWidth - pieceSize));
                     Canvas.SetTop(puzzlePiece, random.Next(paddedHeight - pieceSize));
                     puzzlePiece.Reactivate();
                     puzzlePiece.SnapEventHandler -= OnPieceSnap;
