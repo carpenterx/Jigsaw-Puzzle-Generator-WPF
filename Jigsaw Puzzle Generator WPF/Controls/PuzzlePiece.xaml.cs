@@ -37,6 +37,8 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
             puzzleImage.Source = pieceBitmap;
             //maskImage.ImageSource = maskBitmap;
 
+            borderImage.Opacity = 0.8;
+
             destinationX = x;
             destinationY = y;
             originalZIndex = zIndex;
@@ -105,7 +107,7 @@ namespace Jigsaw_Puzzle_Generator_WPF.Controls
             this.MouseDown += UserControl_MouseDown;
             this.MouseUp += UserControl_MouseUp;
             this.MouseMove += UserControl_MouseMove;
-            borderImage.Opacity = 1;
+            borderImage.Opacity = 0.8;
             this.IsHitTestVisible = true;
         }
     }
