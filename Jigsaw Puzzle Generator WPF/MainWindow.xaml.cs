@@ -47,9 +47,13 @@ namespace Jigsaw_Puzzle_Generator_WPF
         private int paddedHeight;
         private int pieceSize;
 
-        private string pathData1 = "M 400 200 v -120 h -120 c 0 22 40 78 -40 78 s -40 -58 -40 -78 h -120 v 120 c -22 0 -78 -40 -78 40 s 58 40 78 40 v 120 h 120 c 0 -22 -40 -78 40 -78 s 40 58 40 78 h 120 v -120 c 22 0 78 40 78 -40 s -58 -40 -78 -40 Z";
+        //private string pathData1 = "M 400 200 v -120 h -120 c 0 22 40 78 -40 78 s -40 -58 -40 -78 h -120 v 120 c -22 0 -78 -40 -78 40 s 58 40 78 40 v 120 h 120 c 0 -22 -40 -78 40 -78 s 40 58 40 78 h 120 v -120 c 22 0 78 40 78 -40 s -58 -40 -78 -40 Z";
 
-        private string pathData2 = "M 400 200 v -120 h -120 c 0 -22 40 -78 -40 -78 s -40 58 -40 78 h -120 v 120 c 22 0 78 -40 78 40 s -58 40 -78 40 v 120 h 120 c 0 22 -40 78 40 78 s 40 -58 40 -78 h 120 v -120 c -22 0 -78 40 -78 -40 s 58 -40 78 -40 Z";
+        private string pathData1 = "M 200 100 v -60 h -60 c 0 11 20 39 -20 39 s -20 -29 -20 -39 h -60 v 60 c -11 0 -39 -20 -39 20 s 29 20 39 20 v 60 h 60 c 0 -11 -20 -39 20 -39 s 20 29 20 39 h 60 v -60 c 11 0 39 20 39 -20 s -29 -20 -39 -20 Z -78 -40 Z";
+
+        //private string pathData2 = "M 400 200 v -120 h -120 c 0 -22 40 -78 -40 -78 s -40 58 -40 78 h -120 v 120 c 22 0 78 -40 78 40 s -58 40 -78 40 v 120 h 120 c 0 22 -40 78 40 78 s 40 -58 40 -78 h 120 v -120 c -22 0 -78 40 -78 -40 s 58 -40 78 -40 Z";
+
+        private string pathData2 = "M 200 100 v -60 h -60 c 0 -11 20 -39 -20 -39 s -20 29 -20 39 h -60 v 60 c 11 0 39 -20 39 20 s -29 20 -39 20 v 60 h 60 c 0 11 -20 39 20 39 s 20 -29 20 -39 h 60 v -60 c -11 0 -39 20 -39 -20 s 29 -20 39 -20 Z";
 
         Region region1;
         Region region2;
@@ -176,8 +180,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
             int width = b.Width;
             int height = b.Height;
             
-            pieceSize = 480;
-            int pieceCenter = 320;
+            pieceSize = 240;
+            int pieceCenter = 160;
             
             int hPieceCount = width / pieceCenter;
             int vPieceCount = height / pieceCenter;
