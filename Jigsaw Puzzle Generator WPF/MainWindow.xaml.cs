@@ -117,6 +117,8 @@ namespace Jigsaw_Puzzle_Generator_WPF
             dlg.DefaultExt = ".jpg"; // Default file extension
             dlg.Filter = "Image Files(*.Bmp;*.Jpg;*.Png)|*.Bmp;*.Jpg;*.Png";
 
+            piecesTxt.Text = "";
+
             if (dlg.ShowDialog() == true)
             {
                 ShowImage(dlg.FileName);
@@ -157,7 +159,7 @@ namespace Jigsaw_Puzzle_Generator_WPF
             return bitmapImage;
         }
 
-        private void AddPieceClick(object sender, RoutedEventArgs e)
+        private void StartClick(object sender, RoutedEventArgs e)
         {
             GeneratePieces();
         }
